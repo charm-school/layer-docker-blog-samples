@@ -1,0 +1,22 @@
+name: voting-app
+summary: multi-tiered voting app
+maintainer: Juanita Bagodonuts <test@test.com>
+description: |
+  Deploys a 5 service application as standalone to perform voting and result
+  analysis. Supports relations which will reconfigure the application from
+  stand-alone to scale-out usage.
+tags:
+  - application-server
+  - containers
+subordinate: false
+provides:
+  results:
+    interface: http
+  voting:
+    interface: http
+requires:
+  postgres:
+    interface: postgres
+  redis:
+    interface: redis
+
