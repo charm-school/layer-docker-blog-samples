@@ -16,7 +16,7 @@ services:
   {% endif %}
   worker:
     image: {{ worker_image }}
-    {% if redis_host || pg_host %}
+    {% if redis_host or pg_host %}
     environment:
       {% if redis_host %}
       - REDIS_HOST={{ redis_host }}
