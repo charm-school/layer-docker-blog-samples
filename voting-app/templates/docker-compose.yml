@@ -1,0 +1,54 @@
+version: "2"
+services:
+  vote:
+    image: {{ vote_image }}
+    command: python app.py
+  {% if redis_host %}
+    environment:
+      - REDIS_HOST={{ redis_host }}
+  {% endif %}
+    ports:
+      - "{{ vote_port }}:80"
+  {% if not redis_host %}
+  redis:
+    image: {{ redis_image }}
+    ports: ["6379"]
+  {% endif %}
+  worker:
+    image: {{ worker_image }}
+    {% if redis_host || pg_host %}
+    environment:
+      {% if redis_host %}
+      - REDIS_HOST={{ redis_host }}
+      {% endif %}
+      {% if pg_host %}
+      - PG_HOST={{ pg_host }}
+      - PG_USER={{ pg_user }}
+      - PG_PASS={{ pg_pass }}
+      - PG_DB={{ pg_db }}
+      {% endif %}
+    {% endif %}
+  {% if not pg_host %}
+  db:
+    image: {{ postgres_image }}
+    {% if pg_host %}
+    environment:
+      - PG_HOST={{ pg_host }}
+      - PG_USER={{ pg_user }}
+      - PG_PASS={{ pg_pass}}
+      - PG_DB={{ pg_db }}
+    {% endif %}
+  {% endif %}
+  result:
+    image: {{ result_image }}
+    {% if pg_host %}
+    environment:
+      - PG_HOST={{ pg_host }}
+      - PG_USER={{ pg_user }}
+      - PG_PASS={{ pg_pass }}
+      - PG_DB={{ pg_db }}
+    {% endif %}
+    command: nodemon --debug server.js
+    ports:
+      - "{{ result_port }}:80"
+      - "5858:5858"

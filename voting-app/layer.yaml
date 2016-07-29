@@ -1,1 +1,6 @@
-includes: ['layer:basic']  # if you use any interfaces, add them here
+includes:
+  - 'layer:docker'
+  - 'interface:pgsql'
+  - 'interface:redis'
+  - 'interface:http'
+repo: https://github.com/charm-school/layer-docker-blog-samples

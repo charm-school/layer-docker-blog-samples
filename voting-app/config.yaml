@@ -1,14 +1,29 @@
 options:
-  string-option:
+  vote_image:
     type: string
-    default: "Default Value"
-    description: "A short description of the configuration option"
-  boolean-option:
-    type: boolean
-    default: False
-    description: "A short description of the configuration option"
-  int-option:
+    default: lazypower/vote-example
+    description: Image to pull from the registry for the vote app
+  result_image:
+    type: string
+    default: lazypower/result-example
+    description: Image to pull from the registry for the result app
+  worker_image:
+    type: string
+    default: lazypower/worker-example
+    description: Image to pull from the registry for the result app
+  redis_image:
+    type: string
+    default: redis:alpine
+    description: Image to pull from the registry for the redis app
+  postgres_image:
+    type: string
+    default: postgres:9.4
+    description: Image to pull from the registry for the postgres app
+  vote_port:
     type: int
-    default: 9001
-    description: "A short description of the configuration option"
-
+    default: 5000
+    description: Host port to bind the vote application
+  result_port:
+    type: int
+    default: 5001
+    description: Host port to bind the result application

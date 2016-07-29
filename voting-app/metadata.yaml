@@ -16,7 +16,6 @@ provides:
     interface: http
 requires:
   postgres:
-    interface: postgres
+    interface: pgsql
   redis:
     interface: redis
-
